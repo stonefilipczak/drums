@@ -1,0 +1,43 @@
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.machine_show_path(@socket, :show, @machine)}>
+    <.live_component
+      module={DrumsWeb.MachineLive.FormComponent}
+      id={@machine.id}
+      title={@page_title}
+      action={@live_action}
+      machine={@machine}
+      return_to={Routes.machine_show_path(@socket, :show, @machine)}
+    />
+  </.modal>
+<% end %>
+
+
+    
+<h2>
+  <%= @machine.name %>
+</h2>
+
+
+
+<%# Machine render %>
+<div id="machine">
+  <%= for {part, index} <- Enum.with_index(@state) do %>
+    <div class="part">
+      <h3><%= part.sound %></h3>
+      <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
+        <button 
+          phx-click="toggle_beat"
+          phx-value-part={index}
+          phx-value-beat={beat}
+          class={if value == 1, do: "active", else: "inactive" }
+        />
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<footer>
+  <span><%= live_patch "Edit", to: Routes.machine_show_path(@socket, :edit, @machine), class: "button" %></span> |
+  <span><%= live_redirect "Back", to: Routes.machine_index_path(@socket, :index) %></span>
+</footer>
+

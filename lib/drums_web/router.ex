@@ -18,6 +18,12 @@ defmodule DrumsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/machines", MachineLive.Index, :index
+    live "/machines/new", MachineLive.Index, :new
+    live "/machines/:id/edit", MachineLive.Index, :edit
+
+    live "/machines/:id", MachineLive.Show, :show
+    live "/machines/:id/show/edit", MachineLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

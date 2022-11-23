@@ -118,3 +118,25 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.active {
+  background-color: green !important;
+}
+
+.inactive {
+  background-color: #fcf8e3 !important;
+}
+
+.part{
+  border: 1px solid black;
+}
+
+
+.part button:focus{
+  background-color: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+}
