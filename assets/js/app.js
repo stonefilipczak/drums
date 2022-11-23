@@ -25,6 +25,7 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import Tone from "../vendor/tone.min.js"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
@@ -43,3 +44,39 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+if (document.getElementById("allow-audio")) {
+    document.getElementById("allow-audio").addEventListener("click", function() {
+      Tone.context.resume().then(() => {
+        console.log('Playback resumed successfully');
+        synth = new Tone.PolySynth({
+          maxPolyphony: 64,
+          voice: Tone.Synth,
+          volume: -6,
+          options: {
+            envelope : {
+              attack : 2,
+              decay : 1.8,
+              sustain : 1,
+              release : 10
+            }
+          }
+        })
+  
+        reverb = new Tone.Reverb(0.7);
+        delay = new Tone.PingPongDelay("3n", 0.5);
+        const compressor = new Tone.Compressor(-30, 3);
+        
+        /**
+         * Audio effects chain:
+         *
+         * [PolySynth] --> [Reverb] --> [Delay] --> [Compressor] --> Output
+         */
+        synth.connect(reverb);
+        reverb.connect(delay);
+        delay.connect(compressor);
+        compressor.toDestination();
+  
+        synth.triggerAttackRelease("C4", "8n");
+      });
+    });
+  }
