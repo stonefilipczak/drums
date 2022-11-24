@@ -57,4 +57,8 @@ defmodule DrumsWeb.LiveHelpers do
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
+
+  def active_part(assigns) do
+    Enum.at(assigns.state, assigns.active_tab)
+  end
 end

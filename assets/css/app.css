@@ -129,6 +129,7 @@
 
 .part{
   border: 2px solid black;
+  border-bottom: none;
 }
 
 .part button:hover{
@@ -147,4 +148,23 @@
 footer {
   position: fixed;
   bottom: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.tab {
+  background-color: #fcf8e3;
+  color: green !important;
+  border: 2px solid black !important;
+}
+
+.tab:hover {
+  background-color: orange;
+}
+
+.active_tab {
+  border-top: 2px solid white !important;
+  background-color: white !important;
 }

@@ -16,7 +16,7 @@ defmodule DrumsWeb.MachineLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, state: @default_state)}
+    {:ok, assign(socket, state: @default_state, active_tab: 0)}
   end
 
   @impl true
@@ -25,6 +25,11 @@ defmodule DrumsWeb.MachineLive.Show do
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:machine, Machines.get_machine!(id))}
+  end
+
+  def handle_event("tab_click", %{"index" => tab}, socket) do
+    {tab, ""} = Integer.parse(tab)
+    {:noreply, assign(socket, active_tab: tab)}
   end
 
 

@@ -25,7 +25,7 @@
 <%# Machine render %>
 <div id="machine">
   <%= for {part, index} <- Enum.with_index(@state) do %>
-    <div class="part" id={part.sound}>
+    <div class={"part #{if index == @active_tab, do: "current_part", else: "hidden"}"} id={part.sound}>
       <h3><%= part.sound %></h3>
       <button id={"#{part.sound}-demo"}>demo</button>
       <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
@@ -37,6 +37,9 @@
         />
       <% end %>
     </div>
+  <% end %>
+  <%= for {part, index} <- Enum.with_index(@state) do %>
+    <button class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></button>
   <% end %>
 </div>
 

@@ -107,3 +107,5 @@ Array.from(parts).forEach((part) => {
         play_sound(part.id);
     })
 })
+
+let active_tab = 0;
