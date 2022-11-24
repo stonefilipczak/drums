@@ -48,35 +48,62 @@ if (document.getElementById("allow-audio")) {
     document.getElementById("allow-audio").addEventListener("click", function() {
       Tone.context.resume().then(() => {
         console.log('Playback resumed successfully');
-        synth = new Tone.PolySynth({
-          maxPolyphony: 64,
-          voice: Tone.Synth,
-          volume: -6,
-          options: {
-            envelope : {
-              attack : 2,
-              decay : 1.8,
-              sustain : 1,
-              release : 10
-            }
-          }
-        })
-  
-        reverb = new Tone.Reverb(0.7);
-        delay = new Tone.PingPongDelay("3n", 0.5);
-        const compressor = new Tone.Compressor(-30, 3);
-        
-        /**
-         * Audio effects chain:
-         *
-         * [PolySynth] --> [Reverb] --> [Delay] --> [Compressor] --> Output
-         */
-        synth.connect(reverb);
-        reverb.connect(delay);
-        delay.connect(compressor);
-        compressor.toDestination();
-  
-        synth.triggerAttackRelease("C4", "8n");
+        kickDrum = new Tone.MembraneSynth({
+            volume: 6
+          }).toMaster();
+          kickDrum.triggerAttackRelease('C1', '8n')
       });
     });
   }
+
+
+const create_sound = (sound) => {
+    switch(sound) {
+        case "kick":
+            kick = new Tone.MembraneSynth({
+                volume: 6
+              }).toMaster();
+            break;
+
+        case "snare":
+            const lowPass = new Tone.Filter({
+                frequency: 8000,
+            }).toMaster();
+              
+            snare = new Tone.NoiseSynth({
+            volume: 2,
+            noise: {
+                type: 'white',
+                playbackRate: 3,
+            },
+            envelope: {
+                attack: 0.001,
+                decay: 0.50,
+                sustain: 0.15,
+                release: 0.4,
+            },
+            }).connect(lowPass);
+            break;    
+    }
+}
+
+const play_sound = (sound) => {
+    switch(sound) {
+        case "kick":
+            kick.triggerAttackRelease('C1', '8n')
+            break;
+
+        case "snare": 
+            snare.triggerAttackRelease('8n') 
+            break;
+    }
+}
+
+//set up sounds
+let parts = document.getElementsByClassName("part")
+Array.from(parts).forEach((part) => {
+    create_sound(part.id);
+    document.getElementById(part.id + "-demo").addEventListener("click", ()=> {
+        play_sound(part.id);
+    })
+})

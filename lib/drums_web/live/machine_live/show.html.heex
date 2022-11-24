@@ -11,7 +11,9 @@
   </.modal>
 <% end %>
 
-<button id="allow-audio">allow audio</button>
+<.modal> 
+  <button id="allow-audio">allow audio</button>
+</.modal>  
 
     
 <h2>
@@ -23,8 +25,9 @@
 <%# Machine render %>
 <div id="machine">
   <%= for {part, index} <- Enum.with_index(@state) do %>
-    <div class="part">
+    <div class="part" id={part.sound}>
       <h3><%= part.sound %></h3>
+      <button id={"#{part.sound}-demo"}>demo</button>
       <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
         <button 
           phx-click="toggle_beat"

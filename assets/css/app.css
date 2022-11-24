@@ -128,7 +128,15 @@
 }
 
 .part{
-  border: 1px solid black;
+  border: 2px solid black;
+}
+
+.part button:hover{
+  border: 2px solid orange;;
+}
+
+.part button{
+  border: 2px solid black;
 }
 
 
