@@ -120,12 +120,12 @@
 }
 
 .active {
-  background-color: green !important;
+  background-color: darkorchid !important;
   color: white !important;
 }
 
 .inactive {
-  background-color: #fcf8e3 !important;
+  background-color: white !important;
   color: black !important;
 }
 
@@ -135,11 +135,15 @@
 }
 
 .part button:hover{
-  border: 2px solid orange;;
+  border: 3px solid yellow !important;
 }
 
-.part button{
-  border: 2px solid black;
+.beat-button {
+  border: 3px solid black;
+  width: 30px;
+  height: 60px;
+  padding: 0;
+
 }
 
 
@@ -164,5 +168,11 @@ footer {
 }
 
 .tab:hover {
-  border: 3px solid orange !important;
+  border: 3px solid blue !important;
+}
+
+.current-beat {
+  border: 3px solid red !important;
+  box-shadow: 0px 7px 5px red;
+  
 }

@@ -108,14 +108,23 @@ parts.forEach((part) => {
     })
 })
 
+const clearIndicators = () => {
+    Array.from(document.getElementsByClassName("beat-button")).forEach((button) => {
+        button.classList.remove("current-beat")
+    })
+}
+
 const drums = ["kick", "snare"];
 let beat = 0;
 const loop = () => {
+
+    //clear beat indicators
+    clearIndicators();
      
     parts.forEach((part) => {
-        is_active = document.getElementById(`${part.id}-beat-${beat}`).classList.contains("active")
-        console.log(is_active)    
-        if (is_active) {
+        current_beat_button = document.getElementById(`${part.id}-beat-${beat}`);
+        current_beat_button.classList.add("current-beat");
+        if (current_beat_button.classList.contains("active")) {
             play_sound(part.id);
         }
     })
@@ -125,16 +134,19 @@ const loop = () => {
     } else {
         beat = 0;
     }
-    
+
     interval = setTimeout(loop, 300);
 
 }
-
-document.getElementById("play_button").addEventListener("click", () => {
-    loop();
-})
-
-
-document.getElementById("stop_button").addEventListener("click", () => {
-    clearTimeout(interval);
+playButton = document.getElementById("play_button");
+playButton.addEventListener("click", (e) => {
+    if (e.target.innerHTML == "Play") {
+        loop();
+        playButton.innerHTML = "Stop";
+    } else {
+        clearTimeout(interval);
+        clearIndicators();
+        beat = 0;
+        playButton.innerHTML = "Play";
+    }
 })

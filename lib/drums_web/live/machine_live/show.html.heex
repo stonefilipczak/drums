@@ -24,8 +24,7 @@
 
 <%# Machine render %>
 <div id="machine">
-  <button id="play_button">Play</button>
-  <button id="stop_button">Stop</button>
+  <button id="play_button" phx-click="toggle_playback"><%= if @playing == true, do: "Stop", else: "Play" %></button>
   <%# Pattern Buttons %>
   <%= for {part, index} <- Enum.with_index(@state) do %>
     <div class={"part #{if index == @active_tab, do: "current_part", else: "hidden"}"} id={part.sound} data-pattern={part.pattern}>
@@ -37,7 +36,7 @@
           phx-click="toggle_beat"
           phx-value-part={index}
           phx-value-beat={beat}
-          class={if value == 1, do: "active", else: "inactive" }
+          class={"beat-button #{if value == 1, do: "active", else: "inactive"}"}
         />
       <% end %>
     </div>
