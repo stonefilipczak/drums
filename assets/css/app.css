@@ -121,15 +121,17 @@
 
 .active {
   background-color: green !important;
+  color: white !important;
 }
 
 .inactive {
   background-color: #fcf8e3 !important;
+  color: black !important;
 }
 
 .part{
-  border: 2px solid black;
-  border-bottom: none;
+  border: 3px solid black;
+  padding: 5px;
 }
 
 .part button:hover{
@@ -156,15 +158,11 @@ footer {
 
 .tab {
   background-color: #fcf8e3;
-  color: green !important;
-  border: 2px solid black !important;
+  border: 3px solid black !important;
+  border-radius: none !important;
+  margin-top: 5px;
 }
 
 .tab:hover {
-  background-color: orange;
-}
-
-.active_tab {
-  border-top: 2px solid white !important;
-  background-color: white !important;
+  border: 3px solid orange !important;
 }

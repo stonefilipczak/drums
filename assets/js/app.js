@@ -99,13 +99,42 @@ const play_sound = (sound) => {
     }
 }
 
-//set up sounds
-let parts = document.getElementsByClassName("part")
-Array.from(parts).forEach((part) => {
+//init
+let parts = Array.from(document.getElementsByClassName("part"));
+parts.forEach((part) => {
     create_sound(part.id);
     document.getElementById(part.id + "-demo").addEventListener("click", ()=> {
         play_sound(part.id);
     })
 })
 
-let active_tab = 0;
+const drums = ["kick", "snare"];
+let beat = 0;
+const loop = () => {
+     
+    parts.forEach((part) => {
+        is_active = document.getElementById(`${part.id}-beat-${beat}`).classList.contains("active")
+        console.log(is_active)    
+        if (is_active) {
+            play_sound(part.id);
+        }
+    })
+
+    if (beat < 7) {
+        beat++;
+    } else {
+        beat = 0;
+    }
+    
+    interval = setTimeout(loop, 300);
+
+}
+
+document.getElementById("play_button").addEventListener("click", () => {
+    loop();
+})
+
+
+document.getElementById("stop_button").addEventListener("click", () => {
+    clearTimeout(interval);
+})
