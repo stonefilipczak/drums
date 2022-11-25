@@ -129,13 +129,13 @@ const loop = () => {
         }
     })
 
-    if (beat < 7) {
+    if (beat < 15) {
         beat++;
     } else {
         beat = 0;
     }
 
-    interval = setTimeout(loop, 300);
+    interval = setTimeout(loop, 150);
 
 }
 playButton = document.getElementById("play_button");

@@ -6,11 +6,11 @@ defmodule DrumsWeb.MachineLive.Show do
   @default_state [
     %{
       sound: "kick",
-      pattern: [1, 0, 1, 0, 1, 0, 1, 0]
+      pattern: [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0]
     },
     %{
       sound: "snare",
-      pattern: [0, 1, 0, 1, 0, 1, 0, 1]
+      pattern: [0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0]
     }
   ]
 
