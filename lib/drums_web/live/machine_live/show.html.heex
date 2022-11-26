@@ -11,10 +11,6 @@
   </.modal>
 <% end %>
 
-<.modal> 
-  <button id="allow-audio">allow audio</button>
-</.modal>  
-
     
 <h2>
   <%= @machine.name %>
@@ -43,7 +39,7 @@
   <% end %>
   <%# Tab Buttons (for switching drums) %>
   <%= for {part, index} <- Enum.with_index(@state) do %>
-    <button class={"tab #{if index == @active_tab, do: "active", else: "inactive"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></button>
+    <span class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></span>
   <% end %>
 </div>
 

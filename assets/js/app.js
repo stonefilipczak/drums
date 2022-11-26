@@ -44,19 +44,6 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-if (document.getElementById("allow-audio")) {
-    document.getElementById("allow-audio").addEventListener("click", function() {
-      Tone.context.resume().then(() => {
-        console.log('Playback resumed successfully');
-        kickDrum = new Tone.MembraneSynth({
-            volume: 6
-          }).toMaster();
-          kickDrum.triggerAttackRelease('C1', '8n')
-      });
-    });
-  }
-
-
 const create_sound = (sound) => {
     switch(sound) {
         case "kick":
@@ -118,7 +105,6 @@ const drums = ["kick", "snare"];
 let beat = 0;
 const loop = () => {
 
-    //clear beat indicators
     clearIndicators();
      
     parts.forEach((part) => {

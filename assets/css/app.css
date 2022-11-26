@@ -122,11 +122,15 @@
 .active {
   background-color: darkorchid !important;
   color: white !important;
+  margin-left: 2px;
+  margin-right: -2px;
+  padding-bottom: 2px !important;
 }
 
 .inactive {
   background-color: white !important;
   color: black !important;
+  box-shadow: 2px 3px 0px black;
 }
 
 .part{
@@ -135,9 +139,10 @@
 }
 
 .part button:hover{
-  border: 3px solid orange !important;
-  box-shadow: 0px 4px 5px greenyellow;
+  background-color: greenyellow !important;
+  border: 3px solid black !important;
 }
+
 
 .beat-button {
   border: 3px solid black;
@@ -162,18 +167,37 @@ footer {
 }
 
 .tab {
-  background-color: #fcf8e3;
-  border: 3px solid black !important;
-  border-radius: none !important;
-  margin-top: 5px;
+  border-left: 3px solid black !important;
+  border-right: 3px solid black !important;
+  border-bottom: 3px solid black !important;
+  background-color: white !important;
+  cursor: pointer;
+  display: inline-block;
+  width: 100px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 0px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.active_tab {
+  border-top: 3px solid white;
+  margin-top: -3px;
+  cursor: default;
+  background-color: white !important;
 }
 
 .tab:hover {
-  border: 3px solid blue !important;
+  background-color:greenyellow !important;
+}
+
+.active_tab:hover {
+  background-color: white !important;
 }
 
 .current-beat {
-  border: 3px solid red !important;
-  box-shadow: 0px 7px 5px red !important;
+  box-shadow: 2px 2px 2px red !important;
   
 }
