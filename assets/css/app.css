@@ -136,6 +136,7 @@
 .part{
   border-bottom: 3px solid black;
   padding: 5px;
+  margin-top: -15px;
 }
 
 .part button:hover{
@@ -216,9 +217,16 @@ footer {
 }
 
 .demo {
+  font-size: 30px !important;
+  cursor: pointer;
+  width: 73px;
+  padding-left: 15px;
+}
+
+#expander {
   font-size: 40px !important;
   cursor: pointer;
-  margin: 10px;
+  float: right;
 }
 
 .demo:hover{
@@ -232,4 +240,15 @@ hr {
   margin-right: -2px;
   display: inline-block;
   background-color: black;
+}
+
+.label {
+  min-width: 80px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.label:hover{
+  color: greenyellow;
+  cursor: pointer;
 }

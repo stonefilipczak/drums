@@ -23,12 +23,22 @@
   <span id="play_button" phx-click="toggle_playback" class="material-symbols-outlined">
     <%= if @playing == true, do: "stop_circle", else: "play_circle" %>
   </span>
-  <%# Pattern Buttons %>
+  <span id="expander" class="material-symbols-outlined" phx-click="toggle_expanded">
+    <%= if @expanded == false, do: "expand_more", else: "expand_less" %>
+  </span>
+  <%# Parts %>
   <%= for {part, index} <- Enum.with_index(@state) do %>
-    <div class={"part #{if index == @active_tab, do: "current_part", else: "hidden"}"} id={part.sound} data-pattern={part.pattern}>
-      <span class="material-symbols-outlined demo" id={"#{part.sound}-demo"}>
-        campaign
-      </span>
+    <div class={"part #{if index == @active_tab || @expanded == true, do: "current_part", else: "hidden"}"} id={part.sound} data-pattern={part.pattern}>
+      <span id={"#{part.sound}-demo"}>
+        <%= if @expanded do %>
+          <span class="label"><%= part.sound %></span>
+        <% else %> 
+          <span class="material-symbols-outlined demo">
+            campaign
+          </span>
+        <% end %>
+      </span>    
+      <%# Pattern Buttons %>
       <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
         <button
           id={"#{part.sound}-beat-#{beat}"} 
@@ -44,13 +54,16 @@
     </div>
   <% end %>
   <%# Tabs (for switching drums) %>
-  <%= for {part, index} <- Enum.with_index(@state) do %>
-    <span class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></span>
-  <% end %>
+  <%= unless @expanded do %>
+    <%= for {part, index} <- Enum.with_index(@state) do %>
+      <span class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></span>
+    <% end %>
+  <% end %>  
 </div>
-
+<!--
 <footer>
   <span><%= live_patch "Edit", to: Routes.machine_show_path(@socket, :edit, @machine), class: "button" %></span> |
   <span><%= live_redirect "Back", to: Routes.machine_index_path(@socket, :index) %></span>
 </footer>
+-->
 

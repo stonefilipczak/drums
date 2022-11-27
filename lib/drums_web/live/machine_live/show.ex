@@ -40,7 +40,7 @@ defmodule DrumsWeb.MachineLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, state: @default_state, active_tab: 0, playing: false)}
+    {:ok, assign(socket, state: @default_state, active_tab: 0, playing: false, expanded: false)}
   end
 
   @impl true
@@ -58,6 +58,10 @@ defmodule DrumsWeb.MachineLive.Show do
 
   def handle_event("toggle_playback", _params, %{assigns: %{playing: playing}} = socket) do
     {:noreply, assign(socket, playing: !playing)}
+  end
+
+  def handle_event("toggle_expanded", _params, %{assigns: %{expanded: expanded}} = socket) do
+    {:noreply, assign(socket, expanded: !expanded)}
   end
 
 
