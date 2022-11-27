@@ -37,7 +37,7 @@
       <% end %>
     </div>
   <% end %>
-  <%# Tab Buttons (for switching drums) %>
+  <%# Tabs (for switching drums) %>
   <%= for {part, index} <- Enum.with_index(@state) do %>
     <span class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></span>
   <% end %>

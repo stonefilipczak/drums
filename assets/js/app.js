@@ -47,42 +47,58 @@ window.liveSocket = liveSocket
 const create_sound = (sound) => {
     switch(sound) {
         case "kick":
-            kick = new Tone.MembraneSynth({
-                volume: 6
-              }).toMaster();
+            kick = new Tone.Player("../samples/kick.wav").toDestination();
             break;
-
         case "snare":
-            const lowPass = new Tone.Filter({
-                frequency: 8000,
-            }).toMaster();
-              
-            snare = new Tone.NoiseSynth({
-            volume: 2,
-            noise: {
-                type: 'white',
-                playbackRate: 3,
-            },
-            envelope: {
-                attack: 0.001,
-                decay: 0.50,
-                sustain: 0.15,
-                release: 0.4,
-            },
-            }).connect(lowPass);
+            snare = new Tone.Player("../samples/snare.wav").toDestination();
             break;    
+        case "hat closed":
+            hatclosed = new Tone.Player("../samples/hat-closed.wav").toDestination();
+            break;
+        case "hat open":
+            hatopen = new Tone.Player("../samples/hat-open.wav").toDestination();
+            break;         
+        case "ride":
+            ride = new Tone.Player("../samples/ride.wav").toDestination();
+            break;       
+        case "clap":
+            clap = new Tone.Player("../samples/clap.wav").toDestination();
+            break;
+        case "high tom":
+            tom1 = new Tone.Player("../samples/tom1.wav").toDestination();
+            break;  
+        case "low tom":
+            tom2 = new Tone.Player("../samples/tom2.wav").toDestination();
+            break;        
     }
 }
 
 const play_sound = (sound) => {
     switch(sound) {
         case "kick":
-            kick.triggerAttackRelease('C1', '8n')
+            kick.start();
             break;
-
         case "snare": 
-            snare.triggerAttackRelease('8n') 
+            snare.start();
             break;
+        case "hat closed": 
+            hatclosed.start();
+            break;
+        case "hat open": 
+            hatopen.start();
+            break;
+        case "ride": 
+            ride.start();
+            break;
+        case "clap": 
+            clap.start();
+            break;
+        case "high tom": 
+            tom1.start();
+            break;   
+        case "low tom": 
+            tom2.start();
+            break;   
     }
 }
 
