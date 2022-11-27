@@ -20,12 +20,15 @@
 
 <%# Machine render %>
 <div id="machine">
-  <button id="play_button" phx-click="toggle_playback"><%= if @playing == true, do: "Stop", else: "Play" %></button>
+  <span id="play_button" phx-click="toggle_playback" class="material-symbols-outlined">
+    <%= if @playing == true, do: "stop_circle", else: "play_circle" %>
+  </span>
   <%# Pattern Buttons %>
   <%= for {part, index} <- Enum.with_index(@state) do %>
     <div class={"part #{if index == @active_tab, do: "current_part", else: "hidden"}"} id={part.sound} data-pattern={part.pattern}>
-      <h3><%= part.sound %></h3>
-      <button id={"#{part.sound}-demo"}>demo</button>
+      <span class="material-symbols-outlined demo" id={"#{part.sound}-demo"}>
+        campaign
+      </span>
       <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
         <button
           id={"#{part.sound}-beat-#{beat}"} 
@@ -34,6 +37,9 @@
           phx-value-beat={beat}
           class={"beat-button #{if value == 1, do: "active", else: "inactive"}"}
         />
+        <%= if Kernel.rem((beat+1), 4) == 0 do %>
+          <hr/>
+        <% end %>
       <% end %>
     </div>
   <% end %>

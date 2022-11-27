@@ -142,13 +142,12 @@ const loop = () => {
 }
 playButton = document.getElementById("play_button");
 playButton.addEventListener("click", (e) => {
-    if (e.target.innerHTML == "Play") {
+    if (e.target.innerHTML.includes("play")) {
         loop();
-        playButton.innerHTML = "Stop";
     } else {
+        console.log(e.target.innerHTML)
         clearTimeout(interval);
         clearIndicators();
         beat = 0;
-        playButton.innerHTML = "Play";
     }
 })

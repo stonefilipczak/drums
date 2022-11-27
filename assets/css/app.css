@@ -146,12 +146,11 @@
 
 .beat-button {
   border: 3px solid black;
-  width: 30px;
+  width: 35px;
   height: 60px;
   padding: 0;
 
 }
-
 
 .part button:focus{
   background-color: none;
@@ -204,4 +203,32 @@ footer {
 
 #machine {
   margin-top: 100px;
+}
+
+#play_button{
+  font-size: 60px;
+  cursor: pointer;
+}
+
+#play_button:hover{
+  color: greenyellow;
+}
+
+.demo {
+  font-size: 40px !important;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.demo:hover{
+  color: greenyellow;
+}
+
+hr {
+  width: 3px; 
+  height: 20px; 
+  margin-left: 2px;
+  margin-right: -2px;
+  display: inline-block;
+  background-color: black;
 }
