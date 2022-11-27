@@ -150,6 +150,7 @@
   height: 60px;
   padding: 0;
 
+  margin-bottom: 2px;
 }
 
 .part button:focus{
