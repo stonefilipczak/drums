@@ -15,9 +15,10 @@ defmodule Drums.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Drums.PubSub},
       # Start the Endpoint (http/https)
-      DrumsWeb.Endpoint
+      DrumsWeb.Endpoint,
       # Start a worker by calling: Drums.Worker.start_link(arg)
       # {Drums.Worker, arg}
+      Drums.Machines.MachineState
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

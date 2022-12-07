@@ -2,45 +2,16 @@ defmodule DrumsWeb.MachineLive.Show do
   use DrumsWeb, :live_view
 
   alias Drums.Machines
+  alias Drums.Machines.MachineState, as: State
+  alias Phoenix.PubSub
 
-  @default_state [
-    %{
-      sound: "kick",
-      pattern: [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0]
-    },
-    %{
-      sound: "snare",
-      pattern: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-    },
-    %{
-      sound: "hat closed",
-      pattern: [0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-    },
-    %{
-      sound: "hat open",
-      pattern: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-    },
-    %{
-      sound: "ride",
-      pattern: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    },
-    %{
-      sound: "clap",
-      pattern: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0]
-    },
-    %{
-      sound: "high tom",
-      pattern: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-    },
-    %{
-      sound: "low tom",
-      pattern: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-    }
-  ]
+  @topic State.topic
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, state: @default_state, active_tab: 0, playing: false, expanded: false)}
+    PubSub.subscribe(Drums.PubSub, @topic)
+
+    {:ok, assign(socket, state: State.current(), active_tab: 0, playing: false, expanded: false)}
   end
 
   @impl true
@@ -64,26 +35,21 @@ defmodule DrumsWeb.MachineLive.Show do
     {:noreply, assign(socket, expanded: !expanded)}
   end
 
+  @impl true
+  def handle_info({:state, state}, socket) do
+    {:noreply, assign(socket, state: state)}
+  end
+
 
   @impl true
   def handle_event("toggle_beat", %{"part" => part, "beat" => beat}, %{assigns: %{state: state}} = socket) do
     {part, ""} = Integer.parse(part)
     {beat, ""} = Integer.parse(beat)
 
-    socket = assign(socket, state: toggle_beat(state, part, beat))
+    State.update(%{"part" => part, "beat" => beat})
+
+    # socket = assign(socket, state: toggle_beat(state, part, beat))
     {:noreply, socket}
-  end
-
-  defp toggle_beat(state, part_index, beat) do
-   part = Enum.at(state, part_index)
-   pattern = part.pattern
-   new_pattern = List.replace_at(pattern, beat, flip(Enum.at(pattern, beat)))
-   new_part = Map.put(part, :pattern, new_pattern)
-   List.replace_at(state, part_index, new_part)
-  end
-
-  defp flip(bit) do
-    if bit == 0, do: 1, else: 0
   end
 
   defp page_title(:show), do: "Show Machine"
