@@ -1,7 +1,7 @@
 defmodule DrumsWeb.MachineLive.Show do
   use DrumsWeb, :live_view
 
-  alias Drums.Machines
+  # alias Drums.Machines
   alias Drums.Machines.MachineState, as: State
   alias Phoenix.PubSub
 
@@ -14,13 +14,13 @@ defmodule DrumsWeb.MachineLive.Show do
     {:ok, assign(socket, state: State.current(), active_tab: 0, playing: false, expanded: false)}
   end
 
-  @impl true
-  def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:machine, Machines.get_machine!(id))}
-  end
+  # @impl true
+  # def handle_params(%{"id" => id}, _, socket) do
+  #   {:noreply,
+  #    socket
+  #    |> assign(:page_title, page_title(socket.assigns.live_action))
+  #    |> assign(:machine, Machines.get_machine!(id))}
+  # end
 
   def handle_event("tab_click", %{"index" => tab}, socket) do
     {tab, ""} = Integer.parse(tab)

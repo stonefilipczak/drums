@@ -11,13 +11,6 @@
   </.modal>
 <% end %>
 
-    
-<h2>
-  <%= @machine.name %>
-</h2>
-
-
-
 <%# Machine render %>
 <div id="machine">
   <span id="play_button" phx-click="toggle_playback" class="material-symbols-outlined">
@@ -60,10 +53,4 @@
     <% end %>
   <% end %>  
 </div>
-<!--
-<footer>
-  <span><%= live_patch "Edit", to: Routes.machine_show_path(@socket, :edit, @machine), class: "button" %></span> |
-  <span><%= live_redirect "Back", to: Routes.machine_index_path(@socket, :index) %></span>
-</footer>
--->
 

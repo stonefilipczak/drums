@@ -17,7 +17,7 @@ defmodule DrumsWeb.Router do
   scope "/", DrumsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", MachineLive.Show, :show
     live "/machines", MachineLive.Index, :index
     live "/machines/new", MachineLive.Index, :new
     live "/machines/:id/edit", MachineLive.Index, :edit
