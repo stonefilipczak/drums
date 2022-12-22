@@ -21,13 +21,15 @@ defmodule DrumsWeb.MachineLive.Show do
     Presence.track(self(), @presence, socket.id, %{})
 
     {:ok,
-     assign(socket,
+     socket
+     |> assign(
        state: State.current(),
        active_tab: 0,
        playing: false,
        expanded: false,
-       active_users: Enum.count(Presence.list(@presence))
-     )}
+       users: %{}
+     )
+     |> handle_joins(Presence.list(@presence))}
   end
 
   # @impl true
@@ -69,13 +71,26 @@ defmodule DrumsWeb.MachineLive.Show do
     {:noreply, assign(socket, state: state)}
   end
 
-  def handle_info(
-        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
-        %{assigns: %{active_users: count}} = socket
-      ) do
-    active_users = count + Enum.count(joins) - Enum.count(leaves)
+  @impl true
+  def handle_info(%Phoenix.Socket.Broadcast{event: "presence_diff", payload: diff}, socket) do
+    {
+      :noreply,
+      socket
+      |> handle_leaves(diff.leaves)
+      |> handle_joins(diff.joins)
+    }
+  end
 
-    {:noreply, assign(socket, :active_users, active_users)}
+  defp handle_joins(socket, joins) do
+    Enum.reduce(joins, socket, fn {user, %{metas: [meta | _]}}, socket ->
+      assign(socket, :users, Map.put(socket.assigns.users, user, meta))
+    end)
+  end
+
+  defp handle_leaves(socket, leaves) do
+    Enum.reduce(leaves, socket, fn {user, _}, socket ->
+      assign(socket, :users, Map.delete(socket.assigns.users, user))
+    end)
   end
 
   defp page_title(:show), do: "Show Machine"

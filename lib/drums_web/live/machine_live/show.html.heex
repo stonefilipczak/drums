@@ -12,7 +12,7 @@
 <% end %>
 
 <div class="user_count">
-  <span>active connections: <%= @active_users %></span>
+  <span>active connections: <%= Enum.count(@users) %></span>
 </div>
 
 <%# Machine render %>
