@@ -4,14 +4,30 @@ defmodule DrumsWeb.MachineLive.Show do
   # alias Drums.Machines
   alias Drums.Machines.MachineState, as: State
   alias Phoenix.PubSub
+  alias DrumsWeb.Presence
 
-  @topic State.topic
+  @topic State.topic()
+  @presence "machine:presence"
 
   @impl true
   def mount(_params, _session, socket) do
+    ## Subscribe to state changes
     PubSub.subscribe(Drums.PubSub, @topic)
 
-    {:ok, assign(socket, state: State.current(), active_tab: 0, playing: false, expanded: false)}
+    ## Subscribe to presence changes
+    PubSub.subscribe(Drums.PubSub, @presence)
+
+    ## Set this process to be tracked by presence
+    Presence.track(self(), @presence, socket.id, %{})
+
+    {:ok,
+     assign(socket,
+       state: State.current(),
+       active_tab: 0,
+       playing: false,
+       expanded: false,
+       active_users: Enum.count(Presence.list(@presence))
+     )}
   end
 
   # @impl true
@@ -36,20 +52,30 @@ defmodule DrumsWeb.MachineLive.Show do
   end
 
   @impl true
-  def handle_info({:state, state}, socket) do
-    {:noreply, assign(socket, state: state)}
-  end
-
-
-  @impl true
-  def handle_event("toggle_beat", %{"part" => part, "beat" => beat}, %{assigns: %{state: state}} = socket) do
+  def handle_event(
+        "toggle_beat",
+        %{"part" => part, "beat" => beat},
+        %{assigns: %{state: _state}} = socket
+      ) do
     {part, ""} = Integer.parse(part)
     {beat, ""} = Integer.parse(beat)
 
     State.update(%{"part" => part, "beat" => beat})
-
-    # socket = assign(socket, state: toggle_beat(state, part, beat))
     {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:state, state}, socket) do
+    {:noreply, assign(socket, state: state)}
+  end
+
+  def handle_info(
+        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
+        %{assigns: %{active_users: count}} = socket
+      ) do
+    active_users = count + Enum.count(joins) - Enum.count(leaves)
+
+    {:noreply, assign(socket, :active_users, active_users)}
   end
 
   defp page_title(:show), do: "Show Machine"

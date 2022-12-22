@@ -18,7 +18,8 @@ defmodule Drums.Application do
       DrumsWeb.Endpoint,
       # Start a worker by calling: Drums.Worker.start_link(arg)
       # {Drums.Worker, arg}
-      Drums.Machines.MachineState
+      Drums.Machines.MachineState,
+      DrumsWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

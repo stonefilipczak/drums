@@ -55,7 +55,8 @@ defmodule Drums.Machines.MachineState do
 
   def current(), do: GenServer.call(@name, :current)
 
-  def update(%{"part" => part, "beat" => beat}), do: GenServer.call(@name, {:update, %{"part" => part, "beat" => beat}})
+  def update(%{"part" => part, "beat" => beat}),
+    do: GenServer.call(@name, {:update, %{"part" => part, "beat" => beat}})
 
   ## implementation (runs in this genserver process)
 
@@ -76,10 +77,9 @@ defmodule Drums.Machines.MachineState do
     new_pattern = List.replace_at(pattern, beat, flip(Enum.at(pattern, beat)))
     new_part = Map.put(part, :pattern, new_pattern)
     List.replace_at(state, part_index, new_part)
-   end
+  end
 
-   defp flip(bit) do
-     if bit == 0, do: 1, else: 0
-   end
-
+  defp flip(bit) do
+    if bit == 0, do: 1, else: 0
+  end
 end
