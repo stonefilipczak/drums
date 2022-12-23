@@ -9,7 +9,7 @@ defmodule Drums.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Drums.Repo,
+      # Drums.Repo,
       # Start the Telemetry supervisor
       DrumsWeb.Telemetry,
       # Start the PubSub system
