@@ -261,3 +261,12 @@ hr {
   font-weight: bold;
   font-size: small;  
 }
+
+.info{
+  margin-top: 150px;
+}
+
+a{
+  color: darkorchid;
+  font-weight: bold;
+}

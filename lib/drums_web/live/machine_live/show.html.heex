@@ -58,3 +58,13 @@
   <% end %>  
 </div>
 
+<%# info %>
+
+<div class="info">
+  <p>
+    This drum machine is editable in real time by anyone. The number of active connections is <%= Enum.count(@users) %>. Changes that others make will instantly be reflected in your browser, and changes you make will automatically be broadcast to all other connections.
+    It is built using <a href="https://tonejs.github.io/">Tone.js</a> and <a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a>. It is hosted on a Virginia server by <a href="https://fly.io/">Fly.io</a>.
+    The interface and sounds are inspired by the Roland TR-707. Shout out to <a href="https://gems.nathanwillson.com/">GEMS</a> for inspiration.
+  </p>
+</div>
+
