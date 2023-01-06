@@ -221,6 +221,7 @@ footer {
   cursor: pointer;
   width: 73px;
   padding-left: 15px;
+  display: none !important;
 }
 
 #expander {
@@ -269,4 +270,11 @@ hr {
 a{
   color: darkorchid;
   font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .demo {
+    display: inline-block !important;
+  }
 }
