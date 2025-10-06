@@ -93,6 +93,4 @@ defmodule DrumsWeb.MachineLive.Show do
     end)
   end
 
-  defp page_title(:show), do: "Show Machine"
-  defp page_title(:edit), do: "Edit Machine"
 end

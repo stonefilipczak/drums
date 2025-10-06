@@ -15,7 +15,7 @@
   <span>active connections: <%= Enum.count(@users) %></span>
 </div>
 
-<%# Machine render %>
+<%!-- Machine render --%>
 <div id="machine">
   <span id="play_button" phx-click="toggle_playback" class="material-symbols-outlined">
     <%= if @playing == true, do: "stop_circle", else: "play_circle" %>
@@ -23,7 +23,7 @@
   <span id="expander" class="material-symbols-outlined" phx-click="toggle_expanded">
     <%= if @expanded == false, do: "expand_more", else: "expand_less" %>
   </span>
-  <%# Parts %>
+  <%!-- Parts --%>
   <%= for {part, index} <- Enum.with_index(@state) do %>
     <div class={"part #{if index == @active_tab || @expanded == true, do: "current_part", else: "hidden"}"} id={part.sound} data-pattern={part.pattern}>
       <span id={"#{part.sound}-demo"}>
@@ -35,7 +35,7 @@
           </span>
         <% end %>
       </span>    
-      <%# Pattern Buttons %>
+      <%!-- Pattern Buttons --%>
       <%= for {value, beat} <- Enum.with_index(part.pattern) do %>
         <button
           id={"#{part.sound}-beat-#{beat}"} 
@@ -50,7 +50,7 @@
       <% end %>
     </div>
   <% end %>
-  <%# Tabs (for switching drums) %>
+  <%!-- Tabs (for switching drums) --%>
   <%= unless @expanded do %>
     <%= for {part, index} <- Enum.with_index(@state) do %>
       <span class={"tab #{if index == @active_tab, do: "active_tab"}"} phx-click="tab_click" phx-value-index={index}><%= part.sound %></span>
@@ -58,7 +58,7 @@
   <% end %>  
 </div>
 
-<%# info %>
+<%!-- info  --%>
 
 <div class="info">
   <p>
