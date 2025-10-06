@@ -92,5 +92,4 @@ defmodule DrumsWeb.MachineLive.Show do
       assign(socket, :users, Map.delete(socket.assigns.users, user))
     end)
   end
-
 end

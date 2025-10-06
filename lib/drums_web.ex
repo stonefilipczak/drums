@@ -22,7 +22,7 @@ defmodule DrumsWeb do
       use Phoenix.Controller, namespace: DrumsWeb
 
       import Plug.Conn
-      import DrumsWeb.Gettext
+      use Gettext, backend: Drums.Gettext
       alias DrumsWeb.Router.Helpers, as: Routes
     end
   end
@@ -80,7 +80,7 @@ defmodule DrumsWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import DrumsWeb.Gettext
+      use Gettext, backend: Drums.Gettext
     end
   end
 
@@ -97,7 +97,7 @@ defmodule DrumsWeb do
       import Phoenix.View
 
       import DrumsWeb.ErrorHelpers
-      import DrumsWeb.Gettext
+      use Gettext, backend: Drums.Gettext
       alias DrumsWeb.Router.Helpers, as: Routes
     end
   end
